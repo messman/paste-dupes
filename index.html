@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Paste Dupes</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:400,700" rel="stylesheet">
+	<link href="styles.css" rel="stylesheet" />
+	<script src="action.js"></script>
+</head>
+
+<body>
+	<header>
+		<h1 class="green-underline"><span>Paste Dupes</span></h1>
+	</header>
+	<main>
+		<p>
+			Paste in your text to find duplicates.
+			You can paste in songs from Spotify, where they will appear as text.
+		</p>
+		<p>Paste in a second list to compare.</p>
+		<div class="input-container">
+			<section>
+				<h2 class="green-underline"><span>List A</span></h2>
+				<textarea id="js-a-text" cols="30" rows="10" placeholder="Paste in text..."></textarea>
+				<div class="results">
+					<p id="js-a-desc" class="description">N/A</p>
+					<div id="js-a-unique" class="result">
+						<div class="result-left">
+							<button data-js-copy>
+								Copy
+								<span data-js-count>N/A</span>
+							</button>
+						</div>
+						<div class="result-right">
+							<div class="title">A with duplicates removed</div>
+							<div class="desc">Duplicate items are reduced to just one entry.</div>
+						</div>
+					</div>
+					<div id="js-a-dupes" class="result">
+						<div class="result-left">
+							<button data-js-copy>
+								Copy
+								<span data-js-count>N/A</span>
+							</button>
+						</div>
+						<div class="result-right">
+							<div class="title">Only the duplicates from A</div>
+							<div class="desc">Only items that appeared more than once.</div>
+						</div>
+					</div>
+					<div id="js-a-stripped" class="result">
+						<div class="result-left">
+							<button data-js-copy>
+								Copy
+								<span data-js-count>N/A</span>
+							</button>
+						</div>
+						<div class="result-right">
+							<div class="title">A without duplicates or their originals</div>
+							<div class="desc">All traces of the duplicate items are removed.</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section>
+				<h2 class="green-underline"><span>List B (Comparison)</span></h2>
+				<textarea id="js-compare-text" cols="30" rows="10" placeholder="Paste in text..."></textarea>
+				<p id="js-compare-desc" class="description">N/A</p>
+				<div id="js-compare-a-not-b" class="result">
+					<div class="result-left">
+						<button data-js-copy>
+							Copy
+							<span data-js-count>N/A</span>
+						</button>
+					</div>
+					<div class="result-right">
+						<div class="title">A, not B</div>
+						<div class="desc">All the items in A that are not in B, including duplicates.</div>
+					</div>
+				</div>
+				<div id="js-compare-b-not-a" class="result">
+					<p class="description"></p>
+					<div class="result-left">
+						<button data-js-copy>
+							Copy
+							<span data-js-count>N/A</span>
+						</button>
+					</div>
+					<div class="result-right">
+						<div class="title">B, not A</div>
+						<div class="desc">All the items in B that are not in A, including duplicates.</div>
+					</div>
+				</div>
+				<div id="js-compare-a-and-b" class="result">
+					<p class="description"></p>
+					<div class="result-left">
+						<button data-js-copy>
+							Copy
+							<span data-js-count>N/A</span>
+						</button>
+					</div>
+					<div class="result-right">
+						<div class="title">A Intersect B</div>
+						<div class="desc">All the items that are in A and B, including duplicates.</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</main>
+</body>
+
+</html>
