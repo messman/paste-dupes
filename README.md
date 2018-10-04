@@ -2,6 +2,8 @@
 
 A simple web tool for finding duplicates in lists and between lists.
 
+[[https://github.com/messman/paste-dupes/blob/master/screenshot.png|alt=screenshot]]
+
 ## Background
 
 I used to use Apple's iTunes for my music playlist management, and iTunes included a special function for managing duplicates:
