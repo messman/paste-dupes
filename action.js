@@ -1,32 +1,28 @@
 function run() {
 
-	function fallbackCopyTextToClipboard(text) {
-		var textArea = document.createElement("textarea");
-		textArea.value = text;
-		document.body.appendChild(textArea);
-		textArea.focus();
-		textArea.select();
-
-		try {
-			var successful = document.execCommand('copy');
-			var msg = successful ? 'successful' : 'unsuccessful';
-			console.log('Fallback: Copying text command was ' + msg);
-		} catch (err) {
-			console.error('Fallback: Oops, unable to copy', err);
-		}
-
-		document.body.removeChild(textArea);
-	}
 	function copyTextToClipboard(text) {
 		if (!navigator.clipboard) {
-			fallbackCopyTextToClipboard(text);
+			var textArea = document.createElement("textarea");
+			textArea.value = text;
+			document.body.appendChild(textArea);
+			textArea.focus();
+			textArea.select();
+
+			try {
+				var successful = document.execCommand('copy');
+				var msg = successful ? 'successful' : 'unsuccessful';
+				console.log('Fallback: Copying text command was ' + msg);
+			} catch (err) {
+				console.error('Fallback: Oops, unable to copy', err);
+			}
+
+			document.body.removeChild(textArea);
 			return;
 		}
-		navigator.clipboard.writeText(text).then(function () {
-			console.log('Async: Copying to clipboard was successful!');
-		}, function (err) {
-			console.error('Async: Could not copy text: ', err);
-		});
+		navigator.clipboard.writeText(text)
+			.then(function () { }, function (err) {
+				console.error('Async: Could not copy text: ', err);
+			});
 	}
 
 	function createData(id, doButton) {
@@ -70,10 +66,6 @@ function run() {
 		var dupes = [];
 		var nondupes = [];
 
-		lines = lines.slice().sort(function (a, b) {
-			return a.localeCompare(b);
-		});
-
 		for (var i = 0; i < lines.length; i++) {
 			var line = lines[i];
 			var isEqual = false;
@@ -107,6 +99,55 @@ function run() {
 		}
 	}
 
+	function vennAB(a, b) {
+		// A and B are already sorted arrays of strings.
+		// Figure out what's only in A, what's only in B, and what is in both.
+		var onlyInA = [];
+		var onlyInB = [];
+		var inBoth = [];
+
+		var aIndex = 0;
+		var bIndex = 0;
+		var previousMatch = null;
+		while (aIndex < a.length && bIndex < b.length) {
+			var aLine = a[aIndex];
+			var bLine = b[bIndex];
+			if (aLine === previousMatch) {
+				aIndex++;
+			}
+			else if (bLine === previousMatch) {
+				bIndex++;
+			}
+			else if (aLine === bLine) {
+				inBoth.push(bLine);
+				previousMatch = bLine;
+				aIndex++;
+				bIndex++;
+			}
+			else {
+				var bIsHigher = bLine.localeCompare(aLine) === 1;
+				if (bIsHigher) {
+					onlyInA.push(aLine);
+					aIndex++;
+				}
+				else {
+					onlyInB.push(bLine);
+					bIndex++;
+				}
+			}
+		}
+		if (aIndex < a.length)
+			onlyInA = onlyInA.concat(a.slice(aIndex));
+		else if (bIndex < b.length)
+			onlyInB = onlyInB.concat(b.slice(bIndex));
+
+		return {
+			onlyInA: onlyInA,
+			onlyInB: onlyInB,
+			inBoth: inBoth,
+		}
+	}
+
 	function updateAandB() {
 		// Get the text for both textareas
 		var newTextA = a.textarea.el.value;
@@ -127,13 +168,26 @@ function run() {
 		compare.desc.innerHTML = compare.textarea.lines.length + " items";
 
 		// Find the duplicates in the A list
-		var aDuplicates = findDuplicates(a.textarea.lines);
+		var aLinesSorted = a.textarea.lines.slice().sort(function (a, b) {
+			return a.localeCompare(b);
+		});
+		var aDuplicates = findDuplicates(aLinesSorted);
 
 		// Update the UI for the A buttons
 		updateUI(a.unique, aDuplicates.nondupes.concat(aDuplicates.dupes));
 		updateUI(a.dupes, aDuplicates.dupes);
 		updateUI(a.stripped, aDuplicates.nondupes);
 
+		// Compare A's sorted lines with B's sorted lines
+		var bLinesSorted = compare.textarea.lines.slice().sort(function (a, b) {
+			return a.localeCompare(b);
+		});
+
+		var venned = vennAB(aLinesSorted, bLinesSorted);
+		updateUI(compare.aNotB, venned.onlyInA);
+		updateUI(compare.bNotA, venned.onlyInB);
+		updateUI(compare.aAndB, venned.inBoth);
+		console.log(venned);
 	}
 
 	function onUpdate() {

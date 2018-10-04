@@ -19,7 +19,13 @@
 			Paste in your text to find duplicates.
 			You can paste in songs from Spotify, where they will appear as text.
 		</p>
-		<p>Paste in a second list to compare.</p>
+		<p>
+			Paste in a second list to compare.
+		</p>
+		<p>
+			When finished, you can press the "Copy" button to copy the list you want
+			and paste it back somewhere, like Spotify.
+		</p>
 		<div class="input-container">
 			<section>
 				<h2 class="green-underline"><span>List A</span></h2>
@@ -34,20 +40,8 @@
 							</button>
 						</div>
 						<div class="result-right">
-							<div class="title">A with duplicates removed</div>
+							<div class="title">List with duplicates reduced</div>
 							<div class="desc">Duplicate items are reduced to just one entry.</div>
-						</div>
-					</div>
-					<div id="js-a-dupes" class="result">
-						<div class="result-left">
-							<button data-js-copy>
-								Copy
-								<span data-js-count>N/A</span>
-							</button>
-						</div>
-						<div class="result-right">
-							<div class="title">Only the duplicates from A</div>
-							<div class="desc">Only items that appeared more than once.</div>
 						</div>
 					</div>
 					<div id="js-a-stripped" class="result">
@@ -58,8 +52,20 @@
 							</button>
 						</div>
 						<div class="result-right">
-							<div class="title">A without duplicates or their originals</div>
+							<div class="title">List without duplicates and originals</div>
 							<div class="desc">All traces of the duplicate items are removed.</div>
+						</div>
+					</div>
+					<div id="js-a-dupes" class="result">
+						<div class="result-left">
+							<button data-js-copy>
+								Copy
+								<span data-js-count>N/A</span>
+							</button>
+						</div>
+						<div class="result-right">
+							<div class="title">List of only duplicates</div>
+							<div class="desc">Only items that appeared more than once.</div>
 						</div>
 					</div>
 				</div>
@@ -76,8 +82,8 @@
 						</button>
 					</div>
 					<div class="result-right">
-						<div class="title">A, not B</div>
-						<div class="desc">All the items in A that are not in B, including duplicates.</div>
+						<div class="title">List with only items from A</div>
+						<div class="desc">Items that are in A, but not B. Duplicates reduced.</div>
 					</div>
 				</div>
 				<div id="js-compare-b-not-a" class="result">
@@ -89,8 +95,8 @@
 						</button>
 					</div>
 					<div class="result-right">
-						<div class="title">B, not A</div>
-						<div class="desc">All the items in B that are not in A, including duplicates.</div>
+						<div class="title">List with only items from B</div>
+						<div class="desc">Items that are in B, but not A. Duplicates reduced.</div>
 					</div>
 				</div>
 				<div id="js-compare-a-and-b" class="result">
@@ -102,8 +108,8 @@
 						</button>
 					</div>
 					<div class="result-right">
-						<div class="title">A Intersect B</div>
-						<div class="desc">All the items that are in A and B, including duplicates.</div>
+						<div class="title">List with common items from A and B.</div>
+						<div class="desc">Duplicates reduced.</div>
 					</div>
 				</div>
 			</section>
