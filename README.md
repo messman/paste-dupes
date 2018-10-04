@@ -2,7 +2,7 @@
 
 A simple web tool for finding duplicates in lists and between lists.
 
-[[https://github.com/messman/paste-dupes/blob/master/screenshot.png|alt=screenshot]]
+![Screenshot](screenshot.png?raw=true "Screenshot")
 
 ## Background
 
